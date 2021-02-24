@@ -35,6 +35,7 @@ namespace People.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "People.API", Version = "v1" });
             });
 
+            services.AddMvc();
             services.AddSingleton<IDataRepository<Person>, PeopleRepositoryInMemory>();
         }
 
@@ -57,6 +58,9 @@ namespace People.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Main}/{action=Index}/{id?}");
             });
         }
     }
