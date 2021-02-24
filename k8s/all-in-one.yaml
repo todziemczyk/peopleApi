@@ -6,7 +6,7 @@ spec:
   selector:
       matchLabels:
         app: aspnet-people-api
-  replicas: 1
+  replicas: 2
   template:
       metadata:
         labels:
@@ -17,6 +17,8 @@ spec:
           image: dawborycki/people:{{BUILD_NUMBER}}          
           ports:
           - containerPort: 80
+        imagePullSecrets:
+          - name: regcred
 ---
 apiVersion: v1
 kind: Service
