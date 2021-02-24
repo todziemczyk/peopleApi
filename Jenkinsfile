@@ -16,8 +16,7 @@ pipeline {
     }    
     stage('Apply Kubernetes Manifest') {
       steps {          
-          sh 'cat k8s/all-in-one.yaml | sed "s/{{BUILD_NUMBER}}/$BUILD_NUMBER/g"'
-          sh 'kubectl apply -f k8s/all-in-one.yaml'        
+          sh 'cat k8s/all-in-one.yaml | sed "s/{{BUILD_NUMBER}}/$BUILD_NUMBER/g" | kubectl -f -'          
       }
     }
   }
