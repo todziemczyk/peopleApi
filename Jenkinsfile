@@ -15,10 +15,9 @@ pipeline {
       }
     }    
     stage('Apply Kubernetes Manifest') {
-      steps {     
-        withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {     
-          sh 'cat k8s/all-in-one.yaml | sed "s/{{BUILD_NUMBER}}/$BUILD_NUMBER/g" | kubectl apply -f -'          
-        }
+      steps {             
+        sh 'docker login'
+        sh 'cat k8s/all-in-one.yaml | sed "s/{{BUILD_NUMBER}}/$BUILD_NUMBER/g" | kubectl apply -f -'                  
       }
     }
   }
