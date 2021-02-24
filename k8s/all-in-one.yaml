@@ -25,4 +25,6 @@ metadata:
 spec:
   selector:
     app: aspnet-people-api
-  type: ClusterIP  
+  type: ClusterIP
+  ports:
+  - port: 80
