@@ -1,12 +1,25 @@
 pipeline {
   agent any
   stages {
-    stage('build') {
+    stage('Docker Build') {
       steps {
-        sh 'docker build --tag people:${env.BUILD_NUMBER} -f Dockerfile .'
-        sh 'docker tag people:dev dawborycki/people:dev'
+        sh "docker build -t dawborycki/people:${env.BUILD_NUMBER} ."
       }
     }
-
+    stage('Docker Push') {
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+          sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+          sh "docker push dawborycki/people:${env.BUILD_NUMBER}"
+        }
+      }
+    }    
+    stage('Apply Kubernetes Manifest') {
+      steps {
+          withKubeConfig([credentialsId: 'kubeconfig']) {
+          sh 'cat k8s/deployment.yaml | sed "s/{{BUILD_NUMBER}}/$BUILD_NUMBER/g"'
+          sh 'kubectl apply -f k8s/all-in-one.yaml'
+        }
+      }
   }
 }
