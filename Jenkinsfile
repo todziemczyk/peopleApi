@@ -21,5 +21,6 @@ pipeline {
           sh 'kubectl apply -f k8s/all-in-one.yaml'
         }
       }
+    }
   }
 }
