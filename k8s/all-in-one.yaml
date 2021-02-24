@@ -14,7 +14,7 @@ spec:
       spec:
         containers:
         - name: aspnet-people-api-pod
-          image: dawborycki/people/samples:{{BUILD_NUMBER}}          
+          image: dawborycki/people:{{BUILD_NUMBER}}          
           ports:
           - containerPort: 80
 ---
