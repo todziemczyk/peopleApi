@@ -9,6 +9,7 @@ pipeline {
     stage('build') {
       steps {
         sh 'docker build --tag people:dev'
+        sh 'docker tag people:dev dawborycki/people:dev'
       }
     }
 
