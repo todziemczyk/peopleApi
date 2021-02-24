@@ -25,6 +25,9 @@ namespace People.API.Services
 
                 new Person {Id = "3", FirstName="Michel", LastName="Jackson",
                     BirthDate = new DateTime(1912, 11, 18), Description="Musician" },
+
+                new Person {Id = "4", FirstName="Robert", LastName="Lewandowski",
+                    BirthDate = new DateTime(1912, 11, 18), Description="Sportsman" },
             };
         }
 
