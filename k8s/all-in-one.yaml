@@ -25,4 +25,4 @@ metadata:
 spec:
   selector:
     app: aspnet-people-api
-  type: NodePort  
+  type: ClusterIP  
