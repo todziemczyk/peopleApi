@@ -15,10 +15,7 @@ pipeline {
       }
     }    
     stage('Apply Kubernetes Manifest') {
-      steps {             
-        sh 'kubectl create secret generic regcred \
-            --from-file=.dockerconfigjson=/root/.docker/config.json \
-            --type=kubernetes.io/dockerconfigjson'
+      steps {                     
         sh 'cat k8s/all-in-one.yaml | sed "s/{{BUILD_NUMBER}}/$BUILD_NUMBER/g" | kubectl apply -f -'                  
       }
     }
