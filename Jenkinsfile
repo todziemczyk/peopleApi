@@ -6,6 +6,11 @@ pipeline {
         sh "docker build -t dawborycki/people:${env.BUILD_NUMBER} ."
       }
     }
+    stage('Docker Remove Local Image') {
+      steps {
+        sh "docker rmi dawborycki/people:${env.BUILD_NUMBER}"
+      }
+    }
     stage('Docker Push') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
